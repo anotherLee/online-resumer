@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+*::before, *::after{ margin:0; padding:0; box-sizing:0; }
+*{font-family: -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;}
+
+h1,h2,h3{ font-weight:normal; }
+ul,ol{ list-style:none; }
+a{ text-decoration: none; color:inherit; }
+
+
+
+@mixin input{
+    min-width:450px; min-height:60px;
+    border:none; font-size:20px;
+    font-weight:200;
+}
+@mixin box{
+    border:1px solid #ddd; margin:30px auto 0;
+    padding: 0 70px; max-width:550px;
+    box-shadow:0 5px 30px 2px rgba(0,0,0,0.1);
+}
+
+
+#app{
+    text-align:center;
+    padding-top:100px;
+
+    >h3{
+        font-family: 'Courgette', cursive;
+        font-size:50px;  color:#EAD7D7;
+    }
+
+    >.newTask{
+        @include box;
+
+        >input{
+            @include input;
+
+            &:focus{
+                outline:none;
+            }
+            &::-webkit-input-placeholder{
+                font-size:25px; font-weight:100;
+                color:#E7E7E7; font-style:italic;
+            }
+        }
+    }
+    >.todos{
+
+        >li{
+            @include input;  @include box;
+            margin:0 auto;  padding:15px 70px;
+            background:white;  text-align:left;
+            position:relative; border-top:none;
+            display:flex;
+            align-items:center;
+
+            >label{
+
+                >.icon {
+                    width: 25px; height: 25px;
+                    fill: #5DC2AF; position: absolute;
+                    left: 23px; top: 18px; z-index: 1;
+                }
+            }
+
+            >input{
+                -webkit-appearance: none;
+                background-color: #fafafa;
+                border: 1px solid #cacece;
+                //box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+                //padding: 10px;
+                width:30px; height:30px;
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                left:20px; top:15px;
+
+                &:focus{
+                    outline:none;
+                }
+            }
+            .closeIcon{
+                width:25px; height: 25px; fill: red;
+                position:absolute; right:20px; top:18px;
+            }
+
+
+        }
+        li.active{
+            text-decoration: line-through;
+            color:#D9D9D9;
+        }
+    }
+}

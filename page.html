@@ -1,12 +1,32 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="zh-Hans" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style> [v-cloak]{ display: none;} </style>
+  <script src="//at.alicdn.com/t/font_vjs63yttz5v1jor.js"></script>
 </head>
 <body>
-  <div id="app">
-    {{ message }}
+  <div id="app" v-cloak>
+    <h3>todos</h3>
+    <div class="newTask">
+      <input type="text" placeholder="what do you want do?" v-model="newTodo" @keypress.enter="addTodo">
+    </div>
+    <ol class="todos">
+      <li v-for="(todo,index) in todoList" v-bind:class="{active: todoList[index].done}" v-on:mouseenter="a=index" v-on:mouseleave="a=-1">
+        <label for="todo">
+          <svg class="icon" aria-hidden="true" v-show="todoList[index].done===true">
+            <use xlink:href="#icon-icon"></use>
+          </svg>
+        </label>
+        <input type="checkbox" id="todo" / v-model="todo.done">
+        {{todo.title}}
+
+        <svg class="closeIcon" aria-hidden="true" v-on:click="removeTodo(index)" v-show="a === index">
+          <use xlink:href="#icon-close"></use>
+        </svg>
+      </li>
+    </ol>
   </div>
 
   <script src="bundle.js"></script>
