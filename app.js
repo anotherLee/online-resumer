@@ -62,6 +62,7 @@ var app = new Vue({
         login: function(){
             AV.User.logIn(this.formData.email, this.formData.password).then((loginedUser)=>{
                 this.currentUser = this.getCurrentUser()
+                alert('你好，'+ this.currentUser.username)
             },(error)=>{
                 alert('登陆失败')
             })
