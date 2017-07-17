@@ -41,3 +41,7 @@ var app = new Vue({
 
   }
 })
+
+setInterval(function(){
+  console.log(app.a)
+},2000)

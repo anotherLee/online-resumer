@@ -84,6 +84,7 @@ a{ text-decoration: none; color:inherit; }
             .closeIcon{
                 width:25px; height: 25px; fill: red;
                 position:absolute; right:20px; top:18px;
+                display:none;
             }
 
 
@@ -91,6 +92,9 @@ a{ text-decoration: none; color:inherit; }
         li.active{
             text-decoration: line-through;
             color:#D9D9D9;
+        }
+        li:hover > .closeIcon{
+            display:block;
         }
     }
 }

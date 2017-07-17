@@ -13,7 +13,7 @@
       <input type="text" placeholder="what do you want do?" v-model="newTodo" @keypress.enter="addTodo">
     </div>
     <ol class="todos">
-      <li v-for="(todo,index) in todoList" v-bind:class="{active: todo.done}" v-on:mouseenter="a=index" v-on:mouseleave="a=-1">
+      <li v-for="(todo,index) in todoList" v-bind:class="{active: todo.done}">
         <label for="">
           <svg class="icon" aria-hidden="true" v-show="todo.done===true">
             <use xlink:href="#icon-icon"></use>
@@ -22,7 +22,7 @@
         <input type="checkbox" / v-model="todo.done">
         {{todo.title}}
 
-        <svg class="closeIcon" aria-hidden="true" v-on:click="removeTodo(index)" v-show="a === index">
+        <svg class="closeIcon" aria-hidden="true" v-on:click="removeTodo(index)" >
           <use xlink:href="#icon-close"></use>
         </svg>
       </li>
