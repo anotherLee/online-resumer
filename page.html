@@ -13,13 +13,13 @@
       <input type="text" placeholder="what do you want do?" v-model="newTodo" @keypress.enter="addTodo">
     </div>
     <ol class="todos">
-      <li v-for="(todo,index) in todoList" v-bind:class="{active: todoList[index].done}" v-on:mouseenter="a=index" v-on:mouseleave="a=-1">
-        <label for="todo">
-          <svg class="icon" aria-hidden="true" v-show="todoList[index].done===true">
+      <li v-for="(todo,index) in todoList" v-bind:class="{active: todo.done}" v-on:mouseenter="a=index" v-on:mouseleave="a=-1">
+        <label for="">
+          <svg class="icon" aria-hidden="true" v-show="todo.done===true">
             <use xlink:href="#icon-icon"></use>
           </svg>
         </label>
-        <input type="checkbox" id="todo" / v-model="todo.done">
+        <input type="checkbox" / v-model="todo.done">
         {{todo.title}}
 
         <svg class="closeIcon" aria-hidden="true" v-on:click="removeTodo(index)" v-show="a === index">

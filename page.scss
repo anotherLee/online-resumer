@@ -61,13 +61,13 @@ a{ text-decoration: none; color:inherit; }
                 >.icon {
                     width: 25px; height: 25px;
                     fill: #5DC2AF; position: absolute;
-                    left: 23px; top: 18px; z-index: 1;
+                    left: 23px; top: 18px;
                 }
             }
 
             >input{
                 -webkit-appearance: none;
-                background-color: #fafafa;
+                background:transparent;
                 border: 1px solid #cacece;
                 //box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
                 //padding: 10px;
