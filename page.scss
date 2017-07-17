@@ -39,6 +39,12 @@ a{ text-decoration: none; color:inherit; }
         border:1px solid #ccc; background:#3F4050;
         min-height:498px;
 
+        >h3{
+            font-family: 'Courgette', cursive;
+            font-size:50px;  color:#EAD7D7;
+            padding-bottom:48px;
+        }
+
         >.switch{
             @include border(80px);
             min-height:48px; display: flex;

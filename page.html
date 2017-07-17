@@ -11,6 +11,7 @@
 <body>
     <div id="app" v-cloak>
         <section id="signInAndSignUp" v-if="!currentUser">
+            <h3>todos</h3>
             <div class="switch">
                 <div v-bind:class="{active:actionType==='register'}" v-on:click="actionType='register'">注册</div>
                 <div v-bind:class="{active:actionType==='login'}" v-on:click="actionType='login'">登陆</div>
