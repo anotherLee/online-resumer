@@ -66,6 +66,7 @@
         </section>
         <section id="todo" v-if="currentUser">
             <h3>todos</h3>
+            <el-button type="info"class="logout" @click="logout">退出</el-button>
             <div class="newTask">
                 <input type="text" placeholder="what do you want do?" v-model="newTodo" @keypress.enter="addTodo">
             </div>

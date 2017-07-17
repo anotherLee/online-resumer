@@ -162,10 +162,15 @@ a{ text-decoration: none; color:inherit; }
     }
 
     >#todo{
+        position:relative;
 
         >h3{
             font-family: 'Courgette', cursive;
             font-size:50px;  color:#EAD7D7;
+        }
+        >.logout{
+            position:relative;
+            top:-120px; left:350px;
         }
 
         >.newTask{

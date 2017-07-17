@@ -68,10 +68,21 @@ var app = new Vue({
             this.clear()
         },
         getCurrentUser: function(){
-            let id = AV.User.current().id
-            let createdAt = AV.User.current().createdAt
-            let username = AV.User.current().attributes.username
-            return {id,createdAt,username}
+            let current = AV.User.current()
+            if(current){
+                let id = current.id
+                let createdAt = current.createdAt
+                let username = current.attributes.username
+                return {id,createdAt,username}
+            }else{
+                return null
+            }
+
+        },
+        logout: function(){
+            AV.User.logOut()
+            this.currentUser = null
+            window.location.reload()
         },
         clear: function(){
             this.formData.username = ''
@@ -88,6 +99,8 @@ var app = new Vue({
         let oldDataString = window.localStorage.getItem('myTodos')
         let oldData = JSON.parse(oldDataString)
         this.todoList = oldData || []
+
+        this.currentUser = this.getCurrentUser()
 
 
     }
