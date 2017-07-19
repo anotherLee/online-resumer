@@ -13688,6 +13688,9 @@ var app = new _vue2.default({
     data: {
         newTodo: '',
         todoList: [],
+        classify: ['all', 'completed', 'uncompleted', 'clearAll'],
+        a: 0,
+        status: true,
         actionType: 'register',
         formData: {
             email: '',
@@ -13698,16 +13701,50 @@ var app = new _vue2.default({
 
     },
     methods: {
+        sort: function sort() {
+            console.log('sort函数执行了');
+            switch (this.a) {
+                case 0:
+                    for (var i = 0; i < this.todoList.length; i++) {
+                        this.todoList[i].status = 'show';
+                    }
+                    break;
+                case 1:
+                    for (var _i = 0; _i < this.todoList.length; _i++) {
+                        if (this.todoList[_i].done === true) {
+                            this.todoList[_i].status = 'show';
+                        } else {
+                            this.todoList[_i].status = '';
+                        }
+                    }
+                    break;
+                case 2:
+                    for (var _i2 = 0; _i2 < this.todoList.length; _i2++) {
+                        if (this.todoList[_i2].done === false) {
+                            this.todoList[_i2].status = 'show';
+                        } else {
+                            this.todoList[_i2].status = '';
+                        }
+                    }
+                    break;
+                default:
+                    this.todoList = [];
+                    this.saveOrUpdateTodos();
+            }
+        },
         addTodo: function addTodo() {
             this.todoList.push({
                 title: this.newTodo,
                 createdAt: new Date(),
-                done: false
+                done: false,
+                status: 'show'
             });
             this.newTodo = '';
+            this.saveOrUpdateTodos();
         },
         removeTodo: function removeTodo(index) {
             this.todoList.splice(index, 1);
+            this.saveOrUpdateTodos();
         },
         register: function register() {
             var _this = this;
@@ -13729,9 +13766,11 @@ var app = new _vue2.default({
             _leancloudStorage2.default.User.logIn(this.formData.email, this.formData.password).then(function (loginedUser) {
                 _this2.currentUser = _this2.getCurrentUser();
                 alert('你好，' + _this2.currentUser.username);
+                _this2.fetchTodos();
             }, function (error) {
                 alert('登陆失败');
             });
+            console.log('获取到了todos');
             this.clear();
         },
         getCurrentUser: function getCurrentUser() {
@@ -13750,6 +13789,60 @@ var app = new _vue2.default({
             this.currentUser = null;
             window.location.reload();
         },
+        saveTodos: function saveTodos() {
+            var dataString = JSON.stringify(this.todoList);
+            var AVtodos = _leancloudStorage2.default.Object.extend('AllTodos');
+            var avTodos = new AVtodos();
+            avTodos.set('content', dataString);
+
+            var acl = new _leancloudStorage2.default.ACL(); //新建一个ACL实例
+            acl.setReadAccess(_leancloudStorage2.default.User.current(), true); //只有当前用户可读
+            acl.setWriteAccess(_leancloudStorage2.default.User.current(), true); //只有当前用户可写
+            avTodos.setACL(acl); //将ACL的实例acl赋给avTodos对象，这样对avTodos的访问控制就设置了
+
+            // 保存
+            avTodos.save().then(function (todo) {
+                console.log(todo);
+                this.todoList.id = todo.id;
+                console.log('保存成功');
+            }, function (error) {
+                console.log('保存失败');
+            });
+        },
+        updateTodos: function updateTodos() {
+            var dataString = JSON.stringify(this.todoList);
+            var avTodos = _leancloudStorage2.default.Object.createWithoutData('AllTodos', this.todoList.id);
+            avTodos.set('content', dataString);
+            console.log(2);
+            avTodos.save().then(function () {
+                console.log('更新成功');
+            });
+        },
+        saveOrUpdateTodos: function saveOrUpdateTodos() {
+            if (this.todoList.id) {
+                this.updateTodos();
+                console.log(1);
+            } else this.saveTodos();
+            console.log('数据保存或更新了');
+        },
+        fetchTodos: function fetchTodos() {
+            var _this3 = this;
+
+            if (this.currentUser) {
+                var query = new _leancloudStorage2.default.Query('AllTodos');
+                query.find().then(function (todos) {
+                    console.log(todos);
+                    console.log(todos[0]);
+                    var avAllTodos = todos[0];
+                    var id = avAllTodos.id;
+                    _this3.todoList = JSON.parse(avAllTodos.attributes.content);
+                    console.log(_this3.todoList);
+                    _this3.todoList.id = id;
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        },
         clear: function clear() {
             this.formData.username = '';
             this.formData.email = '';
@@ -13758,17 +13851,15 @@ var app = new _vue2.default({
 
     },
     created: function created() {
-        var _this3 = this;
-
-        window.onbeforeunload = function () {
-            var dataString = JSON.stringify(_this3.todoList);
-            window.localStorage.setItem('myTodos', dataString);
-        };
-        var oldDataString = window.localStorage.getItem('myTodos');
-        var oldData = JSON.parse(oldDataString);
-        this.todoList = oldData || [];
+        // window.onbeforeunload = () => {
+        // window.localStorage.setItem('myTodos', dataString)
+        // }
+        // let oldDataString = window.localStorage.getItem('myTodos')
+        // let oldData = JSON.parse(oldDataString)
+        // this.todoList = oldData || []
 
         this.currentUser = this.getCurrentUser();
+        this.fetchTodos();
     }
 });
 
@@ -49334,7 +49425,7 @@ exports = module.exports = __webpack_require__(23)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Courgette);", ""]);
 
 // module
-exports.push([module.i, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\n*::before, *::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: 0; }\n\n* {\n  font-family: -apple-system, \"Helvetica Neue\", Helvetica, \"Nimbus Sans L\", Arial, \"Liberation Sans\", \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans CN\", \"Source Han Sans SC\", \"Microsoft YaHei\", \"Wenquanyi Micro Hei\", \"WenQuanYi Zen Hei\", \"ST Heiti\", SimHei, \"WenQuanYi Zen Hei Sharp\", sans-serif; }\n\nh1, h2, h3 {\n  font-weight: normal; }\n\nul, ol {\n  list-style: none; }\n\na {\n  text-decoration: none;\n  color: inherit; }\n\n#app {\n  text-align: center;\n  padding-top: 100px; }\n  #app > #signInAndSignUp {\n    padding: 100px 0;\n    color: white;\n    border: 1px solid #ccc;\n    background: #3F4050;\n    min-height: 498px; }\n    #app > #signInAndSignUp > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7;\n      padding-bottom: 48px; }\n    #app > #signInAndSignUp > .switch {\n      border: 1px solid #ddd;\n      box-shadow: 0 0 5px #eee;\n      border-radius: 3px;\n      width: 400px;\n      height: 40px;\n      margin: 0 auto;\n      min-height: 48px;\n      display: flex;\n      align-items: center;\n      margin: 0 auto;\n      border-radius: 4px 4px 0 0;\n      min-height: 50px; }\n      #app > #signInAndSignUp > .switch > div {\n        flex: 1;\n        height: 100%;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        cursor: pointer; }\n      #app > #signInAndSignUp > .switch > div.active {\n        background: #507CC0; }\n    #app > #signInAndSignUp > .login, #app > #signInAndSignUp > .register {\n      padding: 0 0 48px 0; }\n      #app > #signInAndSignUp > .login > form, #app > #signInAndSignUp > .register > form {\n        max-width: 400px;\n        margin: 0 auto;\n        overflow: hidden;\n        box-shadow: 0 0 4px #ddd;\n        border-radius: 0 0 4px 4px; }\n        #app > #signInAndSignUp > .login > form > .formRow, #app > #signInAndSignUp > .register > form > .formRow {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 500px;\n          height: 50px;\n          margin: 0 auto;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          border-radius: 0;\n          background: #FFFFFF;\n          color: #A3A3A3;\n          padding-left: 32px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input, #app > #signInAndSignUp > .register > form > .formRow > input {\n            height: 100%;\n            width: 100%;\n            margin-left: 20px;\n            border: none;\n            font-size: 16px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input:focus, #app > #signInAndSignUp > .register > form > .formRow > input:focus {\n            outline: none; }\n          #app > #signInAndSignUp > .login > form > .formRow > input::-webkit-input-placeholder, #app > #signInAndSignUp > .register > form > .formRow > input::-webkit-input-placeholder {\n            color: #A1A1A1; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(1), #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) {\n          border-bottom: 1px solid #ddd; }\n          #app > #signInAndSignUp > .login > form > .formRow:nth-child(1) > .emailIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .emailIcon {\n            width: 28px;\n            height: 28px;\n            fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(2) > .keyIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .keyIcon {\n          width: 28px;\n          height: 28px;\n          fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formAction, #app > #signInAndSignUp > .register > form > .formAction {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 400px;\n          height: 40px;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          min-height: 48px; }\n          #app > #signInAndSignUp > .login > form > .formAction > input, #app > #signInAndSignUp > .register > form > .formAction > input {\n            width: 100%;\n            height: 100%;\n            border: none;\n            background: none;\n            font-size: 16px;\n            color: inherit;\n            background: #FF5E57;\n            cursor: pointer; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .userIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) {\n      border-bottom: 1px solid #ddd; }\n      #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .emailIcon {\n        width: 28px;\n        height: 28px;\n        fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(3) > .keyIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n  #app > #todo {\n    position: relative; }\n    #app > #todo > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7; }\n    #app > #todo > .logout {\n      position: relative;\n      top: -120px;\n      left: 350px; }\n    #app > #todo > .newTask {\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1); }\n      #app > #todo > .newTask > input {\n        min-width: 450px;\n        min-height: 60px;\n        border: none;\n        font-size: 20px;\n        font-weight: 200; }\n        #app > #todo > .newTask > input:focus {\n          outline: none; }\n        #app > #todo > .newTask > input::-webkit-input-placeholder {\n          font-size: 25px;\n          font-weight: 100;\n          color: #E7E7E7;\n          font-style: italic; }\n    #app > #todo > .todos > li {\n      min-width: 450px;\n      min-height: 60px;\n      border: none;\n      font-size: 20px;\n      font-weight: 200;\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1);\n      margin: 0 auto;\n      padding: 15px 70px;\n      background: white;\n      text-align: left;\n      position: relative;\n      border-top: none;\n      display: flex;\n      align-items: center; }\n      #app > #todo > .todos > li > label > .icon {\n        width: 25px;\n        height: 25px;\n        fill: #5DC2AF;\n        position: absolute;\n        left: 23px;\n        top: 18px; }\n      #app > #todo > .todos > li > input {\n        -webkit-appearance: none;\n        background: transparent;\n        border: 1px solid #cacece;\n        width: 30px;\n        height: 30px;\n        border-radius: 50%;\n        display: inline-block;\n        position: absolute;\n        left: 20px;\n        top: 15px; }\n        #app > #todo > .todos > li > input:focus {\n          outline: none; }\n      #app > #todo > .todos > li .closeIcon {\n        width: 25px;\n        height: 25px;\n        fill: red;\n        position: absolute;\n        right: 20px;\n        top: 18px;\n        display: none; }\n    #app > #todo > .todos li.active {\n      text-decoration: line-through;\n      color: #D9D9D9; }\n    #app > #todo > .todos li:hover > .closeIcon {\n      display: block; }\n", ""]);
+exports.push([module.i, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\n*::before, *::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: 0; }\n\n* {\n  font-family: -apple-system, \"Helvetica Neue\", Helvetica, \"Nimbus Sans L\", Arial, \"Liberation Sans\", \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans CN\", \"Source Han Sans SC\", \"Microsoft YaHei\", \"Wenquanyi Micro Hei\", \"WenQuanYi Zen Hei\", \"ST Heiti\", SimHei, \"WenQuanYi Zen Hei Sharp\", sans-serif; }\n\nh1, h2, h3 {\n  font-weight: normal; }\n\nul, ol {\n  list-style: none; }\n\na {\n  text-decoration: none;\n  color: inherit; }\n\n#app {\n  text-align: center;\n  padding-top: 100px; }\n  #app > #signInAndSignUp {\n    padding: 100px 0;\n    color: white;\n    border: 1px solid #ccc;\n    background: #3F4050;\n    min-height: 498px; }\n    #app > #signInAndSignUp > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7;\n      padding-bottom: 48px; }\n    #app > #signInAndSignUp > .switch {\n      border: 1px solid #ddd;\n      box-shadow: 0 0 5px #eee;\n      border-radius: 3px;\n      width: 400px;\n      height: 40px;\n      margin: 0 auto;\n      min-height: 48px;\n      display: flex;\n      align-items: center;\n      margin: 0 auto;\n      border-radius: 4px 4px 0 0;\n      min-height: 50px; }\n      #app > #signInAndSignUp > .switch > div {\n        flex: 1;\n        height: 100%;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        cursor: pointer; }\n      #app > #signInAndSignUp > .switch > div.active {\n        background: #507CC0; }\n    #app > #signInAndSignUp > .login, #app > #signInAndSignUp > .register {\n      padding: 0 0 48px 0; }\n      #app > #signInAndSignUp > .login > form, #app > #signInAndSignUp > .register > form {\n        max-width: 400px;\n        margin: 0 auto;\n        overflow: hidden;\n        box-shadow: 0 0 4px #ddd;\n        border-radius: 0 0 4px 4px; }\n        #app > #signInAndSignUp > .login > form > .formRow, #app > #signInAndSignUp > .register > form > .formRow {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 500px;\n          height: 50px;\n          margin: 0 auto;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          border-radius: 0;\n          background: #FFFFFF;\n          color: #A3A3A3;\n          padding-left: 32px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input, #app > #signInAndSignUp > .register > form > .formRow > input {\n            height: 100%;\n            width: 100%;\n            margin-left: 20px;\n            border: none;\n            font-size: 16px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input:focus, #app > #signInAndSignUp > .register > form > .formRow > input:focus {\n            outline: none; }\n          #app > #signInAndSignUp > .login > form > .formRow > input::-webkit-input-placeholder, #app > #signInAndSignUp > .register > form > .formRow > input::-webkit-input-placeholder {\n            color: #A1A1A1; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(1), #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) {\n          border-bottom: 1px solid #ddd; }\n          #app > #signInAndSignUp > .login > form > .formRow:nth-child(1) > .emailIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .emailIcon {\n            width: 28px;\n            height: 28px;\n            fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(2) > .keyIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .keyIcon {\n          width: 28px;\n          height: 28px;\n          fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formAction, #app > #signInAndSignUp > .register > form > .formAction {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 400px;\n          height: 40px;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          min-height: 48px; }\n          #app > #signInAndSignUp > .login > form > .formAction > input, #app > #signInAndSignUp > .register > form > .formAction > input {\n            width: 100%;\n            height: 100%;\n            border: none;\n            background: none;\n            font-size: 16px;\n            color: inherit;\n            background: #FF5E57;\n            cursor: pointer; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .userIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) {\n      border-bottom: 1px solid #ddd; }\n      #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .emailIcon {\n        width: 28px;\n        height: 28px;\n        fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(3) > .keyIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n  #app > #todo {\n    position: relative; }\n    #app > #todo > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7; }\n    #app > #todo > .logout {\n      position: relative;\n      top: -120px;\n      left: 350px; }\n    #app > #todo > .newTask {\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1); }\n      #app > #todo > .newTask > input {\n        min-width: 450px;\n        min-height: 60px;\n        border: none;\n        font-size: 20px;\n        font-weight: 200; }\n        #app > #todo > .newTask > input:focus {\n          outline: none; }\n        #app > #todo > .newTask > input::-webkit-input-placeholder {\n          font-size: 25px;\n          font-weight: 100;\n          color: #E7E7E7;\n          font-style: italic; }\n    #app > #todo > .todos > li {\n      min-width: 450px;\n      min-height: 60px;\n      border: none;\n      font-size: 20px;\n      font-weight: 200;\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1);\n      margin: 0 auto;\n      padding: 15px 70px;\n      background: white;\n      text-align: left;\n      position: relative;\n      border-top: none;\n      display: flex;\n      align-items: center; }\n      #app > #todo > .todos > li > label > .icon {\n        width: 25px;\n        height: 25px;\n        fill: #5DC2AF;\n        position: absolute;\n        left: 23px;\n        top: 18px; }\n      #app > #todo > .todos > li > input {\n        -webkit-appearance: none;\n        background: transparent;\n        border: 1px solid #cacece;\n        width: 30px;\n        height: 30px;\n        border-radius: 50%;\n        display: inline-block;\n        position: absolute;\n        left: 20px;\n        top: 15px; }\n        #app > #todo > .todos > li > input:focus {\n          outline: none; }\n      #app > #todo > .todos > li .closeIcon {\n        width: 25px;\n        height: 25px;\n        fill: red;\n        position: absolute;\n        right: 20px;\n        top: 18px;\n        display: none; }\n    #app > #todo > .todos li.active {\n      text-decoration: line-through;\n      color: #D9D9D9; }\n    #app > #todo > .todos li:hover > .closeIcon {\n      display: block; }\n    #app > #todo > .todos > .classify {\n      display: flex;\n      justify-content: center; }\n      #app > #todo > .todos > .classify > span {\n        display: inline-block;\n        padding: 2px 10px;\n        margin: 0 7px;\n        font-size: 16px;\n        text-transform: capitalize;\n        color: #919191;\n        cursor: pointer;\n        border: 1px solid transparent; }\n      #app > #todo > .todos > .classify > span.active {\n        border: 1px solid #EFD5D5;\n        border-radius: 2px; }\n", ""]);
 
 // exports
 

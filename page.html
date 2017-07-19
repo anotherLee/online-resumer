@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hans" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="zh-Hans" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:>
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -71,20 +71,26 @@
                 <input type="text" placeholder="what do you want do?" v-model="newTodo" @keypress.enter="addTodo">
             </div>
             <ol class="todos">
-                <li v-for="(todo,index) in todoList" v-bind:class="{active: todo.done}">
+                <li v-for="(todo,index) in todoList" v-bind:class="{active: todo.done}" v-if="todo.status==='show'">
                     <label for="">
                         <svg class="icon" aria-hidden="true" v-show="todo.done===true">
                             <use xlink:href="#icon-icon"></use>
                         </svg>
                     </label>
-                    <input type="checkbox" / v-model="todo.done">
+                    <input type="checkbox" v-model="todo.done" />
                     {{todo.title}}
 
                     <svg class="closeIcon" aria-hidden="true" v-on:click="removeTodo(index)">
                         <use xlink:href="#icon-close"></use>
                     </svg>
                 </li>
+                <li class="classify" v-if="todoList.length !== 0">
+                    <span v-for="(item,index) in classify" v-bind:class="{active:a===index}" v-on:click="a=index,sort()">
+                        {{item}}
+                    </span>
+                </li>
             </ol>
+
 
         </section>
     </div>
