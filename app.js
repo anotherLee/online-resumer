@@ -67,6 +67,7 @@ var app = new Vue({
                     break;
                 default:
                     this.todoList = []
+                    this.a = 0
                     this.saveOrUpdateTodos()
             }
         },

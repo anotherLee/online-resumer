@@ -270,7 +270,7 @@ function deepMerge(target, source) {
   }
   return target;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
@@ -10364,7 +10364,7 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(27)))
 
 /***/ }),
 /* 3 */
@@ -10608,65 +10608,6 @@ exports.default = {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.hasOwn = hasOwn;
-exports.toObject = toObject;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-function hasOwn(obj, key) {
-  return hasOwnProperty.call(obj, key);
-};
-
-function extend(to, _from) {
-  for (var key in _from) {
-    to[key] = _from[key];
-  }
-  return to;
-};
-
-function toObject(arr) {
-  var res = {};
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i]);
-    }
-  }
-  return res;
-};
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* eslint-disable no-undefined */
-
-var throttle = __webpack_require__(19);
-
-/**
- * Debounce execution of a function. Debouncing, unlike throttling,
- * guarantees that a function is only executed a single time, either at the
- * very beginning of a series of calls, or at the very end.
- *
- * @param  {Number}   delay         A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
- * @param  {Boolean}  atBegin       Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed `delay` milliseconds
- *                                  after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call.
- *                                  (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
- * @param  {Function} callback      A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
- *                                  to `callback` when the debounced-function is executed.
- *
- * @return {Function} A new, debounced function.
- */
-module.exports = function ( delay, atBegin, callback ) {
-	return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
-};
-
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10853,6 +10794,65 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hasOwn = hasOwn;
+exports.toObject = toObject;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
+};
+
+function extend(to, _from) {
+  for (var key in _from) {
+    to[key] = _from[key];
+  }
+  return to;
+};
+
+function toObject(arr) {
+  var res = {};
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i]);
+    }
+  }
+  return res;
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint-disable no-undefined */
+
+var throttle = __webpack_require__(19);
+
+/**
+ * Debounce execution of a function. Debouncing, unlike throttling,
+ * guarantees that a function is only executed a single time, either at the
+ * very beginning of a series of calls, or at the very end.
+ *
+ * @param  {Number}   delay         A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param  {Boolean}  atBegin       Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed `delay` milliseconds
+ *                                  after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call.
+ *                                  (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
+ * @param  {Function} callback      A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                  to `callback` when the debounced-function is executed.
+ *
+ * @return {Function} A new, debounced function.
+ */
+module.exports = function ( delay, atBegin, callback ) {
+	return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
+};
 
 
 /***/ }),
@@ -12529,7 +12529,7 @@ module.exports =
 /***/ 260:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(5);
+	module.exports = __webpack_require__(6);
 
 /***/ },
 
@@ -13154,7 +13154,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 exports.isVNode = isVNode;
 exports.getFirstComponentChild = getFirstComponentChild;
 
-var _util = __webpack_require__(5);
+var _util = __webpack_require__(6);
 
 function isVNode(node) {
   return (typeof node === 'undefined' ? 'undefined' : _typeof(node)) === 'object' && (0, _util.hasOwn)(node, 'componentOptions');
@@ -13729,6 +13729,7 @@ var app = new _vue2.default({
                     break;
                 default:
                     this.todoList = [];
+                    this.a = 0;
                     this.saveOrUpdateTodos();
             }
         },
@@ -17787,7 +17788,7 @@ module.exports =
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(6);
+	module.exports = __webpack_require__(7);
 
 /***/ },
 /* 70 */
@@ -37934,7 +37935,7 @@ module.exports =
 /* 332 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(5);
+	module.exports = __webpack_require__(6);
 
 /***/ },
 /* 333 */
@@ -41607,7 +41608,7 @@ module.exports =
 /***/ 62:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(6);
+	module.exports = __webpack_require__(7);
 
 /***/ },
 
@@ -44631,7 +44632,7 @@ exports.default = function (Vue) {
   return template;
 };
 
-var _util = __webpack_require__(5);
+var _util = __webpack_require__(6);
 
 var RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
 /**
@@ -46129,7 +46130,7 @@ module.exports =
 /***/ 62:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(6);
+	module.exports = __webpack_require__(7);
 
 /***/ },
 
@@ -48347,7 +48348,7 @@ module.exports =
 /***/ 62:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(6);
+	module.exports = __webpack_require__(7);
 
 /***/ },
 
@@ -49162,7 +49163,7 @@ exports.default = {
     }
   }
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 67 */
@@ -49425,7 +49426,7 @@ exports = module.exports = __webpack_require__(23)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Courgette);", ""]);
 
 // module
-exports.push([module.i, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\n*::before, *::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: 0; }\n\n* {\n  font-family: -apple-system, \"Helvetica Neue\", Helvetica, \"Nimbus Sans L\", Arial, \"Liberation Sans\", \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans CN\", \"Source Han Sans SC\", \"Microsoft YaHei\", \"Wenquanyi Micro Hei\", \"WenQuanYi Zen Hei\", \"ST Heiti\", SimHei, \"WenQuanYi Zen Hei Sharp\", sans-serif; }\n\nh1, h2, h3 {\n  font-weight: normal; }\n\nul, ol {\n  list-style: none; }\n\na {\n  text-decoration: none;\n  color: inherit; }\n\n#app {\n  text-align: center;\n  padding-top: 100px; }\n  #app > #signInAndSignUp {\n    padding: 100px 0;\n    color: white;\n    border: 1px solid #ccc;\n    background: #3F4050;\n    min-height: 498px; }\n    #app > #signInAndSignUp > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7;\n      padding-bottom: 48px; }\n    #app > #signInAndSignUp > .switch {\n      border: 1px solid #ddd;\n      box-shadow: 0 0 5px #eee;\n      border-radius: 3px;\n      width: 400px;\n      height: 40px;\n      margin: 0 auto;\n      min-height: 48px;\n      display: flex;\n      align-items: center;\n      margin: 0 auto;\n      border-radius: 4px 4px 0 0;\n      min-height: 50px; }\n      #app > #signInAndSignUp > .switch > div {\n        flex: 1;\n        height: 100%;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        cursor: pointer; }\n      #app > #signInAndSignUp > .switch > div.active {\n        background: #507CC0; }\n    #app > #signInAndSignUp > .login, #app > #signInAndSignUp > .register {\n      padding: 0 0 48px 0; }\n      #app > #signInAndSignUp > .login > form, #app > #signInAndSignUp > .register > form {\n        max-width: 400px;\n        margin: 0 auto;\n        overflow: hidden;\n        box-shadow: 0 0 4px #ddd;\n        border-radius: 0 0 4px 4px; }\n        #app > #signInAndSignUp > .login > form > .formRow, #app > #signInAndSignUp > .register > form > .formRow {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 500px;\n          height: 50px;\n          margin: 0 auto;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          border-radius: 0;\n          background: #FFFFFF;\n          color: #A3A3A3;\n          padding-left: 32px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input, #app > #signInAndSignUp > .register > form > .formRow > input {\n            height: 100%;\n            width: 100%;\n            margin-left: 20px;\n            border: none;\n            font-size: 16px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input:focus, #app > #signInAndSignUp > .register > form > .formRow > input:focus {\n            outline: none; }\n          #app > #signInAndSignUp > .login > form > .formRow > input::-webkit-input-placeholder, #app > #signInAndSignUp > .register > form > .formRow > input::-webkit-input-placeholder {\n            color: #A1A1A1; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(1), #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) {\n          border-bottom: 1px solid #ddd; }\n          #app > #signInAndSignUp > .login > form > .formRow:nth-child(1) > .emailIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .emailIcon {\n            width: 28px;\n            height: 28px;\n            fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(2) > .keyIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .keyIcon {\n          width: 28px;\n          height: 28px;\n          fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formAction, #app > #signInAndSignUp > .register > form > .formAction {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 400px;\n          height: 40px;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          min-height: 48px; }\n          #app > #signInAndSignUp > .login > form > .formAction > input, #app > #signInAndSignUp > .register > form > .formAction > input {\n            width: 100%;\n            height: 100%;\n            border: none;\n            background: none;\n            font-size: 16px;\n            color: inherit;\n            background: #FF5E57;\n            cursor: pointer; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .userIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) {\n      border-bottom: 1px solid #ddd; }\n      #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .emailIcon {\n        width: 28px;\n        height: 28px;\n        fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(3) > .keyIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n  #app > #todo {\n    position: relative; }\n    #app > #todo > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7; }\n    #app > #todo > .logout {\n      position: relative;\n      top: -120px;\n      left: 350px; }\n    #app > #todo > .newTask {\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1); }\n      #app > #todo > .newTask > input {\n        min-width: 450px;\n        min-height: 60px;\n        border: none;\n        font-size: 20px;\n        font-weight: 200; }\n        #app > #todo > .newTask > input:focus {\n          outline: none; }\n        #app > #todo > .newTask > input::-webkit-input-placeholder {\n          font-size: 25px;\n          font-weight: 100;\n          color: #E7E7E7;\n          font-style: italic; }\n    #app > #todo > .todos > li {\n      min-width: 450px;\n      min-height: 60px;\n      border: none;\n      font-size: 20px;\n      font-weight: 200;\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1);\n      margin: 0 auto;\n      padding: 15px 70px;\n      background: white;\n      text-align: left;\n      position: relative;\n      border-top: none;\n      display: flex;\n      align-items: center; }\n      #app > #todo > .todos > li > label > .icon {\n        width: 25px;\n        height: 25px;\n        fill: #5DC2AF;\n        position: absolute;\n        left: 23px;\n        top: 18px; }\n      #app > #todo > .todos > li > input {\n        -webkit-appearance: none;\n        background: transparent;\n        border: 1px solid #cacece;\n        width: 30px;\n        height: 30px;\n        border-radius: 50%;\n        display: inline-block;\n        position: absolute;\n        left: 20px;\n        top: 15px; }\n        #app > #todo > .todos > li > input:focus {\n          outline: none; }\n      #app > #todo > .todos > li .closeIcon {\n        width: 25px;\n        height: 25px;\n        fill: red;\n        position: absolute;\n        right: 20px;\n        top: 18px;\n        display: none; }\n    #app > #todo > .todos li.active {\n      text-decoration: line-through;\n      color: #D9D9D9; }\n    #app > #todo > .todos li:hover > .closeIcon {\n      display: block; }\n    #app > #todo > .todos > .classify {\n      display: flex;\n      justify-content: center; }\n      #app > #todo > .todos > .classify > span {\n        display: inline-block;\n        padding: 2px 10px;\n        margin: 0 7px;\n        font-size: 16px;\n        text-transform: capitalize;\n        color: #919191;\n        cursor: pointer;\n        border: 1px solid transparent; }\n      #app > #todo > .todos > .classify > span.active {\n        border: 1px solid #EFD5D5;\n        border-radius: 2px; }\n", ""]);
+exports.push([module.i, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\n*::before, *::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: 0; }\n\n* {\n  font-family: -apple-system, \"Helvetica Neue\", Helvetica, \"Nimbus Sans L\", Arial, \"Liberation Sans\", \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans CN\", \"Source Han Sans SC\", \"Microsoft YaHei\", \"Wenquanyi Micro Hei\", \"WenQuanYi Zen Hei\", \"ST Heiti\", SimHei, \"WenQuanYi Zen Hei Sharp\", sans-serif; }\n\nh1, h2, h3 {\n  font-weight: normal; }\n\nul, ol {\n  list-style: none; }\n\na {\n  text-decoration: none;\n  color: inherit; }\n\n#app {\n  text-align: center; }\n  #app > #signInAndSignUp {\n    padding: 100px 0;\n    color: white;\n    border: 1px solid #ccc;\n    background: #3F4050;\n    min-height: 100vh; }\n    #app > #signInAndSignUp > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7;\n      padding-bottom: 48px; }\n    #app > #signInAndSignUp > .switch {\n      border: 1px solid #ddd;\n      box-shadow: 0 0 5px #eee;\n      border-radius: 3px;\n      width: 400px;\n      height: 40px;\n      margin: 0 auto;\n      min-height: 48px;\n      display: flex;\n      align-items: center;\n      margin: 0 auto;\n      border-radius: 4px 4px 0 0;\n      min-height: 50px; }\n      #app > #signInAndSignUp > .switch > div {\n        flex: 1;\n        height: 100%;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        cursor: pointer; }\n      #app > #signInAndSignUp > .switch > div.active {\n        background: #507CC0; }\n    #app > #signInAndSignUp > .login, #app > #signInAndSignUp > .register {\n      padding: 0 0 48px 0; }\n      #app > #signInAndSignUp > .login > form, #app > #signInAndSignUp > .register > form {\n        max-width: 400px;\n        margin: 0 auto;\n        overflow: hidden;\n        box-shadow: 0 0 4px #ddd;\n        border-radius: 0 0 4px 4px; }\n        #app > #signInAndSignUp > .login > form > .formRow, #app > #signInAndSignUp > .register > form > .formRow {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 500px;\n          height: 50px;\n          margin: 0 auto;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          border-radius: 0;\n          background: #FFFFFF;\n          color: #A3A3A3;\n          padding-left: 32px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input, #app > #signInAndSignUp > .register > form > .formRow > input {\n            height: 100%;\n            width: 100%;\n            margin-left: 20px;\n            border: none;\n            font-size: 16px; }\n          #app > #signInAndSignUp > .login > form > .formRow > input:focus, #app > #signInAndSignUp > .register > form > .formRow > input:focus {\n            outline: none; }\n          #app > #signInAndSignUp > .login > form > .formRow > input::-webkit-input-placeholder, #app > #signInAndSignUp > .register > form > .formRow > input::-webkit-input-placeholder {\n            color: #A1A1A1; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(1), #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) {\n          border-bottom: 1px solid #ddd; }\n          #app > #signInAndSignUp > .login > form > .formRow:nth-child(1) > .emailIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .emailIcon {\n            width: 28px;\n            height: 28px;\n            fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formRow:nth-child(2) > .keyIcon, #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .keyIcon {\n          width: 28px;\n          height: 28px;\n          fill: #82D6E3; }\n        #app > #signInAndSignUp > .login > form > .formAction, #app > #signInAndSignUp > .register > form > .formAction {\n          border: 1px solid #ddd;\n          box-shadow: 0 0 5px #eee;\n          border-radius: 3px;\n          width: 400px;\n          height: 40px;\n          margin: 0 auto;\n          display: flex;\n          align-items: center;\n          box-shadow: none;\n          border: none;\n          min-height: 48px; }\n          #app > #signInAndSignUp > .login > form > .formAction > input, #app > #signInAndSignUp > .register > form > .formAction > input {\n            width: 100%;\n            height: 100%;\n            border: none;\n            background: none;\n            font-size: 16px;\n            color: inherit;\n            background: #FF5E57;\n            cursor: pointer; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(1) > .userIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) {\n      border-bottom: 1px solid #ddd; }\n      #app > #signInAndSignUp > .register > form > .formRow:nth-child(2) > .emailIcon {\n        width: 28px;\n        height: 28px;\n        fill: #82D6E3; }\n    #app > #signInAndSignUp > .register > form > .formRow:nth-child(3) > .keyIcon {\n      width: 28px;\n      height: 28px;\n      fill: #82D6E3; }\n  #app > #todo {\n    position: relative; }\n    #app > #todo > h3 {\n      font-family: 'Courgette', cursive;\n      font-size: 50px;\n      color: #EAD7D7; }\n    #app > #todo > .logout {\n      position: relative;\n      top: -120px;\n      left: 350px; }\n    #app > #todo > .newTask {\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1); }\n      #app > #todo > .newTask > input {\n        min-width: 450px;\n        min-height: 60px;\n        border: none;\n        font-size: 20px;\n        font-weight: 200; }\n        #app > #todo > .newTask > input:focus {\n          outline: none; }\n        #app > #todo > .newTask > input::-webkit-input-placeholder {\n          font-size: 25px;\n          font-weight: 100;\n          color: #E7E7E7;\n          font-style: italic; }\n    #app > #todo > .todos > li {\n      min-width: 450px;\n      min-height: 60px;\n      border: none;\n      font-size: 20px;\n      font-weight: 200;\n      border: 1px solid #ddd;\n      margin: 30px auto 0;\n      padding: 0 70px;\n      max-width: 550px;\n      box-shadow: 0 5px 30px 2px rgba(0, 0, 0, 0.1);\n      margin: 0 auto;\n      padding: 15px 70px;\n      background: white;\n      text-align: left;\n      position: relative;\n      border-top: none;\n      display: flex;\n      align-items: center; }\n      #app > #todo > .todos > li > label > .icon {\n        width: 25px;\n        height: 25px;\n        fill: #5DC2AF;\n        position: absolute;\n        left: 23px;\n        top: 18px; }\n      #app > #todo > .todos > li > input {\n        -webkit-appearance: none;\n        background: transparent;\n        border: 1px solid #cacece;\n        width: 30px;\n        height: 30px;\n        border-radius: 50%;\n        display: inline-block;\n        position: absolute;\n        left: 20px;\n        top: 15px; }\n        #app > #todo > .todos > li > input:focus {\n          outline: none; }\n      #app > #todo > .todos > li .closeIcon {\n        width: 25px;\n        height: 25px;\n        fill: red;\n        position: absolute;\n        right: 20px;\n        top: 18px;\n        display: none; }\n    #app > #todo > .todos li.active {\n      text-decoration: line-through;\n      color: #D9D9D9; }\n    #app > #todo > .todos li:hover > .closeIcon {\n      display: block; }\n    #app > #todo > .todos > .classify {\n      display: flex;\n      justify-content: center; }\n      #app > #todo > .todos > .classify > span {\n        display: inline-block;\n        padding: 2px 10px;\n        margin: 0 7px;\n        font-size: 16px;\n        text-transform: capitalize;\n        color: #919191;\n        cursor: pointer;\n        border: 1px solid transparent; }\n      #app > #todo > .todos > .classify > span.active {\n        border: 1px solid #EFD5D5;\n        border-radius: 2px; }\n", ""]);
 
 // exports
 
@@ -49456,7 +49457,7 @@ n(26);var r=n(5);r._=n(0),r.version=n(12),r.Promise=n(1),r.localStorage=n(11),r.
  */
 t.exports=function(t){return null!=t&&(n(t)||r(t)||!!t._isBuffer)}},function(t,e,n){!function(e){var n={},r={};n.length=0,n.getItem=function(t){return r[t]||null},n.setItem=function(t,e){void 0===e?n.removeItem(t):(r.hasOwnProperty(t)||n.length++,r[t]=""+e)},n.removeItem=function(t){r.hasOwnProperty(t)&&(delete r[t],n.length--)},n.key=function(t){return Object.keys(r)[t]||null},n.clear=function(){r={},n.length=0},t.exports=n}()},function(t,e,n){!function(){var e=n(44),r=n(13).utf8,i=n(48),s=n(13).bin,o=function(t,n){t.constructor==String?t=n&&"binary"===n.encoding?s.stringToBytes(t):r.stringToBytes(t):i(t)?t=Array.prototype.slice.call(t,0):Array.isArray(t)||(t=t.toString());for(var a=e.bytesToWords(t),u=8*t.length,c=1732584193,l=-271733879,h=-1732584194,f=271733878,d=0;d<a.length;d++)a[d]=16711935&(a[d]<<8|a[d]>>>24)|4278255360&(a[d]<<24|a[d]>>>8);a[u>>>5]|=128<<u%32,a[14+(u+64>>>9<<4)]=u;for(var p=o._ff,_=o._gg,v=o._hh,m=o._ii,d=0;d<a.length;d+=16){var y=c,g=l,b=h,w=f;c=p(c,l,h,f,a[d+0],7,-680876936),f=p(f,c,l,h,a[d+1],12,-389564586),h=p(h,f,c,l,a[d+2],17,606105819),l=p(l,h,f,c,a[d+3],22,-1044525330),c=p(c,l,h,f,a[d+4],7,-176418897),f=p(f,c,l,h,a[d+5],12,1200080426),h=p(h,f,c,l,a[d+6],17,-1473231341),l=p(l,h,f,c,a[d+7],22,-45705983),c=p(c,l,h,f,a[d+8],7,1770035416),f=p(f,c,l,h,a[d+9],12,-1958414417),h=p(h,f,c,l,a[d+10],17,-42063),l=p(l,h,f,c,a[d+11],22,-1990404162),c=p(c,l,h,f,a[d+12],7,1804603682),f=p(f,c,l,h,a[d+13],12,-40341101),h=p(h,f,c,l,a[d+14],17,-1502002290),l=p(l,h,f,c,a[d+15],22,1236535329),c=_(c,l,h,f,a[d+1],5,-165796510),f=_(f,c,l,h,a[d+6],9,-1069501632),h=_(h,f,c,l,a[d+11],14,643717713),l=_(l,h,f,c,a[d+0],20,-373897302),c=_(c,l,h,f,a[d+5],5,-701558691),f=_(f,c,l,h,a[d+10],9,38016083),h=_(h,f,c,l,a[d+15],14,-660478335),l=_(l,h,f,c,a[d+4],20,-405537848),c=_(c,l,h,f,a[d+9],5,568446438),f=_(f,c,l,h,a[d+14],9,-1019803690),h=_(h,f,c,l,a[d+3],14,-187363961),l=_(l,h,f,c,a[d+8],20,1163531501),c=_(c,l,h,f,a[d+13],5,-1444681467),f=_(f,c,l,h,a[d+2],9,-51403784),h=_(h,f,c,l,a[d+7],14,1735328473),l=_(l,h,f,c,a[d+12],20,-1926607734),c=v(c,l,h,f,a[d+5],4,-378558),f=v(f,c,l,h,a[d+8],11,-2022574463),h=v(h,f,c,l,a[d+11],16,1839030562),l=v(l,h,f,c,a[d+14],23,-35309556),c=v(c,l,h,f,a[d+1],4,-1530992060),f=v(f,c,l,h,a[d+4],11,1272893353),h=v(h,f,c,l,a[d+7],16,-155497632),l=v(l,h,f,c,a[d+10],23,-1094730640),c=v(c,l,h,f,a[d+13],4,681279174),f=v(f,c,l,h,a[d+0],11,-358537222),h=v(h,f,c,l,a[d+3],16,-722521979),l=v(l,h,f,c,a[d+6],23,76029189),c=v(c,l,h,f,a[d+9],4,-640364487),f=v(f,c,l,h,a[d+12],11,-421815835),h=v(h,f,c,l,a[d+15],16,530742520),l=v(l,h,f,c,a[d+2],23,-995338651),c=m(c,l,h,f,a[d+0],6,-198630844),f=m(f,c,l,h,a[d+7],10,1126891415),h=m(h,f,c,l,a[d+14],15,-1416354905),l=m(l,h,f,c,a[d+5],21,-57434055),c=m(c,l,h,f,a[d+12],6,1700485571),f=m(f,c,l,h,a[d+3],10,-1894986606),h=m(h,f,c,l,a[d+10],15,-1051523),l=m(l,h,f,c,a[d+1],21,-2054922799),c=m(c,l,h,f,a[d+8],6,1873313359),f=m(f,c,l,h,a[d+15],10,-30611744),h=m(h,f,c,l,a[d+6],15,-1560198380),l=m(l,h,f,c,a[d+13],21,1309151649),c=m(c,l,h,f,a[d+4],6,-145523070),f=m(f,c,l,h,a[d+11],10,-1120210379),h=m(h,f,c,l,a[d+2],15,718787259),l=m(l,h,f,c,a[d+9],21,-343485551),c=c+y>>>0,l=l+g>>>0,h=h+b>>>0,f=f+w>>>0}return e.endian([c,l,h,f])};o._ff=function(t,e,n,r,i,s,o){var a=t+(e&n|~e&r)+(i>>>0)+o;return(a<<s|a>>>32-s)+e},o._gg=function(t,e,n,r,i,s,o){var a=t+(e&r|n&~r)+(i>>>0)+o;return(a<<s|a>>>32-s)+e},o._hh=function(t,e,n,r,i,s,o){var a=t+(e^n^r)+(i>>>0)+o;return(a<<s|a>>>32-s)+e},o._ii=function(t,e,n,r,i,s,o){var a=t+(n^(e|~r))+(i>>>0)+o;return(a<<s|a>>>32-s)+e},o._blocksize=16,o._digestsize=16,t.exports=function(t,n){if(void 0===t||null===t)throw new Error("Illegal argument "+t);var r=e.wordsToBytes(o(t,n));return n&&n.asBytes?r:n&&n.asString?s.bytesToString(r):e.bytesToHex(r)}}()},function(t,e){function n(t){if(t=String(t),!(t.length>100)){var e=/^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(t);if(e){var n=parseFloat(e[1]);switch((e[2]||"ms").toLowerCase()){case"years":case"year":case"yrs":case"yr":case"y":return n*l;case"days":case"day":case"d":return n*c;case"hours":case"hour":case"hrs":case"hr":case"h":return n*u;case"minutes":case"minute":case"mins":case"min":case"m":return n*a;case"seconds":case"second":case"secs":case"sec":case"s":return n*o;case"milliseconds":case"millisecond":case"msecs":case"msec":case"ms":return n;default:return}}}}function r(t){return t>=c?Math.round(t/c)+"d":t>=u?Math.round(t/u)+"h":t>=a?Math.round(t/a)+"m":t>=o?Math.round(t/o)+"s":t+"ms"}function i(t){return s(t,c,"day")||s(t,u,"hour")||s(t,a,"minute")||s(t,o,"second")||t+" ms"}function s(t,e,n){if(!(t<e))return t<1.5*e?Math.floor(t/e)+" "+n:Math.ceil(t/e)+" "+n+"s"}var o=1e3,a=60*o,u=60*a,c=24*u,l=365.25*c;t.exports=function(t,e){e=e||{};var s=typeof t;if("string"===s&&t.length>0)return n(t);if("number"===s&&!1===isNaN(t))return e.long?i(t):r(t);throw new Error("val is not a non-empty string or a valid number. val="+JSON.stringify(t))}},function(t,e,n){function r(t){return"[object Function]"===(i(t)?Object.prototype.toString.call(t):"")}var i=n(8);t.exports=r},function(t,e,n){function r(t){if(t)return i(t)}function i(t){for(var e in r.prototype)t[e]=r.prototype[e];return t}var s=n(8);t.exports=r,r.prototype.clearTimeout=function(){return clearTimeout(this._timer),clearTimeout(this._responseTimeoutTimer),delete this._timer,delete this._responseTimeoutTimer,this},r.prototype.parse=function(t){return this._parser=t,this},r.prototype.responseType=function(t){return this._responseType=t,this},r.prototype.serialize=function(t){return this._serializer=t,this},r.prototype.timeout=function(t){if(!t||"object"!=typeof t)return this._timeout=t,this._responseTimeout=0,this;for(var e in t)switch(e){case"deadline":this._timeout=t.deadline;break;case"response":this._responseTimeout=t.response;break;default:console.warn("Unknown timeout option",e)}return this},r.prototype.retry=function(t){return 0!==arguments.length&&!0!==t||(t=1),t<=0&&(t=0),this._maxRetries=t,this._retries=0,this},r.prototype._retry=function(){return this.clearTimeout(),this.req&&(this.req=null,this.req=this.request()),this._aborted=!1,this.timedout=!1,this._end()},r.prototype.then=function(t,e){if(!this._fullfilledPromise){var n=this;this._endCalled&&console.warn("Warning: superagent request was sent twice, because both .end() and .then() were called. Never call .end() if you use promises"),this._fullfilledPromise=new Promise(function(t,e){n.end(function(n,r){n?e(n):t(r)})})}return this._fullfilledPromise.then(t,e)},r.prototype.catch=function(t){return this.then(void 0,t)},r.prototype.use=function(t){return t(this),this},r.prototype.ok=function(t){if("function"!=typeof t)throw Error("Callback required");return this._okCallback=t,this},r.prototype._isResponseOK=function(t){return!!t&&(this._okCallback?this._okCallback(t):t.status>=200&&t.status<300)},r.prototype.get=function(t){return this._header[t.toLowerCase()]},r.prototype.getHeader=r.prototype.get,r.prototype.set=function(t,e){if(s(t)){for(var n in t)this.set(n,t[n]);return this}return this._header[t.toLowerCase()]=e,this.header[t]=e,this},r.prototype.unset=function(t){return delete this._header[t.toLowerCase()],delete this.header[t],this},r.prototype.field=function(t,e){if(null===t||void 0===t)throw new Error(".field(name, val) name can not be empty");if(this._data&&console.error(".field() can't be used if .send() is used. Please use only .send() or only .field() & .attach()"),s(t)){for(var n in t)this.field(n,t[n]);return this}if(Array.isArray(e)){for(var r in e)this.field(t,e[r]);return this}if(null===e||void 0===e)throw new Error(".field(name, val) val can not be empty");return"boolean"==typeof e&&(e=""+e),this._getFormData().append(t,e),this},r.prototype.abort=function(){return this._aborted?this:(this._aborted=!0,this.xhr&&this.xhr.abort(),this.req&&this.req.abort(),this.clearTimeout(),this.emit("abort"),this)},r.prototype.withCredentials=function(t){return void 0==t&&(t=!0),this._withCredentials=t,this},r.prototype.redirects=function(t){return this._maxRedirects=t,this},r.prototype.toJSON=function(){return{method:this.method,url:this.url,data:this._data,headers:this._header}},r.prototype.send=function(t){var e=s(t),n=this._header["content-type"];if(this._formData&&console.error(".send() can't be used if .attach() or .field() is used. Please use only .send() or only .field() & .attach()"),e&&!this._data)Array.isArray(t)?this._data=[]:this._isHost(t)||(this._data={});else if(t&&this._data&&this._isHost(this._data))throw Error("Can't merge these send calls");if(e&&s(this._data))for(var r in t)this._data[r]=t[r];else"string"==typeof t?(n||this.type("form"),n=this._header["content-type"],this._data="application/x-www-form-urlencoded"==n?this._data?this._data+"&"+t:t:(this._data||"")+t):this._data=t;return!e||this._isHost(t)?this:(n||this.type("json"),this)},r.prototype.sortQuery=function(t){return this._sort=void 0===t||t,this},r.prototype._timeoutError=function(t,e,n){if(!this._aborted){var r=new Error(t+e+"ms exceeded");r.timeout=e,r.code="ECONNABORTED",r.errno=n,this.timedout=!0,this.abort(),this.callback(r)}},r.prototype._setTimeouts=function(){var t=this;this._timeout&&!this._timer&&(this._timer=setTimeout(function(){t._timeoutError("Timeout of ",t._timeout,"ETIME")},this._timeout)),this._responseTimeout&&!this._responseTimeoutTimer&&(this._responseTimeoutTimer=setTimeout(function(){t._timeoutError("Response timeout of ",t._responseTimeout,"ETIMEDOUT")},this._responseTimeout))}},function(t,e,n){function r(t){if(t)return i(t)}function i(t){for(var e in r.prototype)t[e]=r.prototype[e];return t}var s=n(56);t.exports=r,r.prototype.get=function(t){return this.header[t.toLowerCase()]},r.prototype._setHeaderProperties=function(t){var e=t["content-type"]||"";this.type=s.type(e);var n=s.params(e);for(var r in n)this[r]=n[r];this.links={};try{t.link&&(this.links=s.parseLinks(t.link))}catch(t){}},r.prototype._setStatusProperties=function(t){var e=t/100|0;this.status=this.statusCode=t,this.statusType=e,this.info=1==e,this.ok=2==e,this.redirect=3==e,this.clientError=4==e,this.serverError=5==e,this.error=(4==e||5==e)&&this.toError(),this.accepted=202==t,this.noContent=204==t,this.badRequest=400==t,this.unauthorized=401==t,this.notAcceptable=406==t,this.forbidden=403==t,this.notFound=404==t}},function(t,e){var n=["ECONNRESET","ETIMEDOUT","EADDRINFO","ESOCKETTIMEDOUT"];t.exports=function(t,e){return!!(t&&t.code&&~n.indexOf(t.code))||(!!(e&&e.status&&e.status>=500)||(!!(t&&"timeout"in t&&"ECONNABORTED"==t.code)||!!(t&&"crossDomain"in t)))}},function(t,e){e.type=function(t){return t.split(/ *; */).shift()},e.params=function(t){return t.split(/ *; */).reduce(function(t,e){var n=e.split(/ *= */),r=n.shift(),i=n.shift();return r&&i&&(t[r]=i),t},{})},e.parseLinks=function(t){return t.split(/ *, */).reduce(function(t,e){var n=e.split(/ *; */),r=n[0].slice(1,-1);return t[n[1].split(/ *= */)[1].slice(1,-1)]=r,t},{})},e.cleanHeader=function(t,e){return delete t["content-type"],delete t["content-length"],delete t["transfer-encoding"],delete t.host,e&&delete t.cookie,t}},function(t,e){}])});
 //# sourceMappingURL=av-min.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ })
 /******/ ]);
